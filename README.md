@@ -1,19 +1,76 @@
-
 # Redspot
 
-Redspot is a Redmine tool that help users to navigate between pages and
-some more awesome features.
+Redspot is a **Redmine Plugin** that help users to navigate efficiently and rapidly
+in redmine features and pages. Inspired by Spotlight.
 
-## Setup
+**Installation**, **Theming** and technical stuff are developed in the [Developer Guide](developer.md)
 
-In the `plugins/` Redmine directory, clone this repository and restart the app.
-Enjoy.
+---
 
+1. To launch Redspot type **ESC** (escape) anywhere in Redmine. 
+1. When you type anything, the tooltip on the right show you the current action.
+1. Run the action with **ENTER**
 
-## Update
+That's all folks !
 
-When you update the VueJS App, run `rake redspot_build`.
-Generated webpack files will be copied in their Redmine plugin directories.
+# Features
 
-For specific actions on the VueJS App, please look at [redspot_vuejs/README.md](redspot_vuejs/README.md)
+## Go to an Issue
 
+To access issue #12345, just type `#12345` in Redspot.
+
+![](doc_img/issue.png)
+
+## Change project and/or page
+
+You can access another specific page of the current or another project by typing :
+```
+/command [projet]
+```
+If the first selected result in the list is not the one you want, move in the list with **Top** or **Down** arrow keys.
+You can only type a command to change page in the current project.
+
+### Go to Synbioz wiki
+
+![](doc_img/wiki_syn.png)
+
+### Create new issue in ffepgv project
+
+![](doc_img/new_issue.png)
+
+## Search anything
+
+You can use the search engine of Redmine directly in Redspot
+Start with a bang `!` and type the wanted words
+
+![](doc_img/search.png)
+
+Add spaces between composed names.
+
+## Create a new project
+
+If you didn't type any command or if no project is find, Redspot allow you to create a new project.
+
+![](doc_img/create.png)
+
+---
+
+## Available commands
+
+| Name (FR) | /command  | Destination |
+|:---|:---|:---|
+| Activité |  **`/a`**, `/activity` | `/activity` |
+| Roadmap |  **`/r`**, `/roadmap` | `/roadmap` |
+| Demandes |  **`/#`**, `/i`, `/issues` | `/issues` |
+| Nouvelle demande |  **`/+`**, `/new` | `/issues/new` |
+| Gantt |  **`/g`**, `/gantt` | `/issues/gantt` |
+| Calendar |  **`/c`**, `/calendar` | `/issues/calendar` |
+| Annonces |  **`/n`**, `/news` | `/news` |
+| Documents |  **`/d`**, `/documents` | `/documents` |
+| Wiki |  **`/w`**, `/wiki` | `/wiki` |
+| Wiki by date |  **`/wd`** | `/wiki/date_index` |
+| Wiki by title |  **`/wt`** | `/wiki/index` |
+| Files |  **`/f`**, `/files` | `/files` |
+| Configuration |  **`/s`**, `/settings` | `/settings` |
+
+---
