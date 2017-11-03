@@ -1,6 +1,5 @@
 <template>
-  <div class="Redspot" v-if='redspotIsVisible' id="Redspot">
-    <a href="" target="_blank" id="new_tab_link"></a>
+  <div class="Redspot" v-if="isVisible" id="Redspot" :class="{'loading': isLoading}">
     <i class="Redspot__icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
         <g fill="none" fill-rule="evenodd">
@@ -19,7 +18,6 @@
       type="text"
       placeholder="Redspot search"
       class="Redspot__input"
-      id="Redspot__input"
       v-model="inputText"
       ref="input"
       v-focus
@@ -32,10 +30,10 @@
       <div class="Redspot__results" v-if="currentProject">
         <div class="Redspot__resultList">
           <transition-group name="list" tag="p">
-            <a v-for="p in filteredProject"
+            <a v-for="(p, i) in filteredProject"
               class="Redspot__project"
               tabindex="-1"
-              :class="{'Redspot__project--focused': p.focused}"
+              :class="{'Redspot__project--focused': i === currentIndex}"
               :key="p.name"
               :href="p.url"
               @mouseenter="updateCurrentIndex"
@@ -46,13 +44,13 @@
         </div>
         <div class="Redspot__help">
           <pre class="Redspot__shortDoc">
-#123   : Issue #123
-pri    : Projet Pridami
-! foo  : Search for foo
-/a     : Page des Activités
-/w ffe : Wiki - FFEPGV
+            #123   : Issue #123
+            !foo   : Search for foo
+            xyz    : Xyz Project
+            /+     : Create a new issue
+            /w xyz : Wiki - Xyz Project
           </pre>
-          <a class="Redspot__docLink" href="https://support.synbioz.com/projects/redmine-synbioz/wiki/Redspot" target="_blank">Documentation</a>
+          <a class="Redspot__docLink" href="https://www.synbioz.com/blog/redspot_with_vue" target="_blank">HELP</a>
         </div>
       </div>
     </transition>
@@ -63,16 +61,29 @@ pri    : Projet Pridami
   import Vue from 'vue'
   import diacritics from 'diacritics'
   import Fuse from 'fuse.js'
+  const fuseOptions = {
+    include: ['score'],
+    shouldSort: true,
+    tokenize: true,
+    matchAllTokens: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 1000,
+    maxPatternLength: 32,
+    minMatchCharLength: 2,
+    keys: ['name']
+  }
 
   export default {
     name: 'Redspot',
     data: function () {
       return {
-        redspotIsVisible: false,
+        isVisible: true,
+        isLoading: true,
         inputText: '',
         commands: [
           {
-            title: 'Activité',
+            title: 'Activity',
             alias: ['/a', '/activity'],
             url: '/activity'
           }, {
@@ -80,11 +91,11 @@ pri    : Projet Pridami
             alias: ['/r', '/roadmap'],
             url: '/roadmap'
           }, {
-            title: 'Demandes',
+            title: 'Issues',
             alias: ['/#', '/i', '/issues'],
             url: '/issues'
           }, {
-            title: 'Nouvelle demande',
+            title: 'New Issue',
             alias: ['/+', '/n', '/new'],
             url: '/issues/new'
           }, {
@@ -96,7 +107,7 @@ pri    : Projet Pridami
             alias: ['/c', '/calendar'],
             url: '/issues/calendar'
           }, {
-            title: 'Annonces',
+            title: 'News',
             alias: ['/n', '/news'],
             url: '/news'
           }, {
@@ -120,7 +131,7 @@ pri    : Projet Pridami
             alias: ['/f', '/files'],
             url: '/files'
           }, {
-            title: 'Configuration',
+            title: 'Settings',
             alias: ['/s', '/settings'],
             url: '/settings'
           }
@@ -128,60 +139,38 @@ pri    : Projet Pridami
         aliases: null,
         currentIndex: 0,
         currentTip: '',
-        fuseProjectList: null,
-        fuse_options: {
-          include: ['score'],
-          shouldSort: true,
-          tokenize: true,
-          matchAllTokens: true,
-          threshold: 0.1,
-          location: 0,
-          distance: 1000,
-          maxPatternLength: 32,
-          minMatchCharLength: 2,
-          keys: ['name']
-        }
+        fuseProjectList: null
       }
     },
     methods: {
       inputCommand: function () {
-        var a = this.inputText.split(' ').filter(word => word[0] === '/').pop()
+        const a = this.inputText.split(' ').filter(word => word[0] === '/').pop()
         return this.aliases[a] ? this.aliases[a] : ''
       },
       inputProject: function () {
-        var p = this.inputText.split(' ').filter(word =>
+        let p = this.inputText.split(' ').filter(word =>
           word[0] !== '/' && word[0] !== '!' && word[0] !== '#'
         ).join(' ')
         p = p.replace(/\s*$/, '')
         return p.length ? p : ''
       },
       updateCurrentIndex: function (e) {
-        if (this.filteredProject.length > 0) {
-          if (e && e.type === 'mouseenter') {
-            this.currentIndex = Array.prototype.indexOf.call(e.currentTarget.parentNode.childNodes, e.currentTarget)
-          }
-          this.filteredProject.forEach(function (p) {
-            p.focused = false
-          })
-          this.filteredProject[this.currentIndex].focused = true
+        if (this.filteredProject.length <= 0) {
+          return false
         }
+        if (e && e.type === 'mouseenter') {
+          this.currentIndex = Array.prototype.indexOf.call(e.currentTarget.parentNode.childNodes, e.currentTarget)
+        }
+        this.currentIndex = Math.min(this.currentIndex, this.filteredProject.length - 1)
       },
       focusUp: function () {
-        this.currentIndex--
-        if (this.currentIndex < 0) {
-          this.currentIndex = 0
-        }
-        this.updateCurrentIndex()
+        this.currentIndex = Math.max(this.currentIndex - 1, 0)
       },
       focusDown: function () {
-        this.currentIndex++
-        if (this.filteredProject && this.currentIndex >= this.filteredProject.length - 1) {
-          this.currentIndex = this.filteredProject.length - 1
-        }
-        this.updateCurrentIndex()
+        this.currentIndex = Math.min(this.currentIndex + 1, this.filteredProject.length - 1)
       },
       toggleRedspot: function () {
-        this.redspotIsVisible = !this.redspotIsVisible
+        this.isVisible = !this.isVisible
       },
       goto: function (e) {
         let url = ''
@@ -194,13 +183,14 @@ pri    : Projet Pridami
         }
         url += this.parsed.command ? this.parsed.command.url : ''
 
-        if (url) {
-          url = window.location.origin + url
-          if (e.metaKey) {
-            window.open(url, '_blank')
-          } else {
-            window.location = url
-          }
+        if (!url) return
+
+        this.isLoading = true
+        url = window.location.origin + url
+        if (e.metaKey) {
+          window.open(url, '_blank')
+        } else {
+          window.location = url
         }
       }
     },
@@ -213,20 +203,19 @@ pri    : Projet Pridami
             command: this.inputCommand(),
             project: this.inputProject()
           }
-        } else {
-          return {
-            issue: '',
-            search: '',
-            command: '',
-            project: ''
-          }
+        }
+        return {
+          issue: '',
+          search: '',
+          command: '',
+          project: ''
         }
       },
       newProjectLink: function () {
         return `/projects/new?project[name]=${this.inputText}`
       },
       currentLabel: function () {
-        var l = ''
+        let l = ''
         l += this.parsed.search ? `Search : ${this.parsed.search}` : ''
         l += this.parsed.issue ? `Issue ${this.parsed.issue}` : ''
         l += this.parsed.command ? this.parsed.command.title : ''
@@ -236,7 +225,7 @@ pri    : Projet Pridami
         if (l.length > 0) {
           this.currentTip = ''
         } else {
-          let p = this.parsed.project
+          const p = this.parsed.project
           this.currentTip = p && p.length >= 3 ? p : ''
         }
         return l.length ? l : null
@@ -257,10 +246,9 @@ pri    : Projet Pridami
     },
     mounted: function () {
       // On ESC => open Redspot
-      var that = this
-      document.addEventListener('keyup', function (e) {
+      document.addEventListener('keyup', (e) => {
         if (e.keyCode === 27) {
-          that.toggleRedspot()
+          this.toggleRedspot()
         }
       })
     },
@@ -277,16 +265,15 @@ pri    : Projet Pridami
       if (document.getElementById('project_quick_jump_box').length !== 0) {
         var projectList = []
         document.querySelectorAll('#project_quick_jump_box option').forEach(function (opt) {
-          var str = opt.value.match(/\/projects\/(.*)\?.*/)
-          if (str !== null) {
-            projectList.push({
-              name: diacritics.remove(opt.innerText.split('»').pop().trim()),
-              url: opt.value.split('?').shift(),
-              focused: false
-            })
+          if (opt.value.match(/\/projects\/(.*)\?.*/) === null) {
+            return
           }
+          projectList.push({
+            name: diacritics.remove(opt.innerText.split('»').pop().trim()),
+            url: opt.value.split('?').shift()
+          })
         })
-        this.fuseProjectList = new Fuse(projectList, this.fuse_options)
+        this.fuseProjectList = new Fuse(projectList, fuseOptions)
       } else {
         console.error("Can't create the project list")
       }
