@@ -78,8 +78,8 @@
     name: 'Redspot',
     data: function () {
       return {
-        isVisible: true,
-        isLoading: true,
+        isVisible: false,
+        isLoading: false,
         inputText: '',
         commands: [
           {
