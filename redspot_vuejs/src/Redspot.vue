@@ -13,12 +13,11 @@
     <transition name="tip" mode="out-in">
       <div class="Redspot__tips" v-if="currentTip !== ''">
         <a :href="newProjectLink" class="Redspot__tip Redspot__tip--project">Create project</a>
-        <!-- <a href="#" class="Redspot__tip Redspot__tip--search">New search</a> -->
       </div>
     </transition>
     <input
       type="text"
-      placeholder="Recherche Redspot"
+      placeholder="Redspot search"
       class="Redspot__input"
       id="Redspot__input"
       v-model="inputText"
@@ -296,25 +295,5 @@ pri    : Projet Pridami
 </script>
 
 <style lang="sass" >
-
-  // Synbioz Thème
-  $background-color: rgb(42,48,56)
-  $primary-color: #4ca5d1
-  $secondary-color: #4ca5d1
-
-  $text-color: #fff
-  $link-color: $primary-color
-  $icon-color: rgba($text-color, 0.5)
-  $focus-background: $primary-color
-  $focus-color: $text-color
-  $help-background: rgba($background-color,0.5)
-  $result-background: rgba($background-color,0.1)
-  $border: 0
-  $border-radius: 5px
-  $box-shadow: 0 2em 4em 0 rgba(0,0,0,0.3)
-
-  $font-family: -apple-system, BlinkMacSystemFont, sans-serif
-  $help-font-family: monospace
-  $font-size: 16px
   @import "~SASS/style.sass"
 </style>
