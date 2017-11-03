@@ -17,7 +17,9 @@ with a default projet selector to initialize Redspot.
 
 ## Update
 
-When you update the VueJS App, run :
+When you update the VueJS App, change the plugin version in VERSION.
+
+Then :
 ```
 rake build
 ```
