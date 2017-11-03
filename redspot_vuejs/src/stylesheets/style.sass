@@ -1,4 +1,10 @@
-@import "~SASS/theme-default.sass"
+@import "~SASS/theme-lol.sass"
+
+@keyframes spin
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
 
 .Redspot,
 .Redspot *
@@ -76,7 +82,7 @@
     &__help
       flex: 1 0 50%
       width: 50%
-      overflow: auto
+      overflow: hidden
       display: flex
       flex-flow: column
       justify-content: space-between
@@ -94,6 +100,7 @@
         color: lighten($primary-color, 10)
     &__shortDoc
       font-family: $help-font-family
+      white-space: pre-line
     &__tips
       position: absolute
       right: 2em
@@ -149,18 +156,20 @@
         text-decoration: none
 
 .loading
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-  display: inline-block
-  vertical-align: middle
-  position: relative
-  margin-right: 3em
-  font-size: 10px
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  margin: auto
   width: 2.8em
   height: 2.8em
+  vertical-align: middle
+  font-size: 10px
   border-radius: 50%
+  box-shadow: none
+  visibility: hidden
+  transform: none
   &:before
     content: ""
     position: absolute
@@ -168,10 +177,12 @@
     left: 0
     right: 0
     bottom: 0
+    z-index: 1
     border-radius: 50%
+    visibility: visible
     border: 3px solid transparent
-    border-left-color: #fff
-    border-top-color: #fff
+    border-left-color: $primary-color
+    border-top-color: $primary-color
     animation: spin 1s infinite ease-in-out
 
 
