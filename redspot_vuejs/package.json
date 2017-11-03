@@ -1,8 +1,8 @@
 {
-  "name": "redspot2",
+  "name": "Redspot",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Victor Darras <victor.darras@gmail.com>",
+  "description": "Redmine is a Redmine navigation plugin built with VueJS",
+  "author": "Victor Darras <vdarras@synbioz.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -10,15 +10,13 @@
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
-  "dependencies": {
+  "devDependencies": {
     "compression-webpack-plugin": "^1.0.1",
     "diacritics": "^1.3.0",
     "fuse.js": "^3.2.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
-    "vue": "^2.5.2"
-  },
-  "devDependencies": {
+    "vue": "^2.5.2",
     "autoprefixer": "^7.1.6",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.1.1",

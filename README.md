@@ -34,7 +34,7 @@ You can only type a command to change page in the current project.
 
 ![](doc_img/wiki_syn.png)
 
-### Create new issue in ffepgv project
+### Create new issue in Synbiot project
 
 ![](doc_img/new_issue.png)
 
