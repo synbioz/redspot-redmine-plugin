@@ -1,13 +1,13 @@
 # Redspot
 
-Redspot is a **Redmine Plugin** that help users to navigate efficiently and rapidly
-in redmine features and pages. Inspired by Spotlight.
+Redspot is a _keyboard-only_ **Redmine Plugin** that help users to navigate
+efficiently and rapidly in redmine features and pages. Inspired by Spotlight.
 
 **Installation**, **Theming** and technical stuff are developed in the [Developer Guide](developer.md)
 
 ---
 
-1. To launch Redspot type **ESC** (escape) anywhere in Redmine. 
+1. To launch Redspot type **ESC** (escape) anywhere in Redmine.
 1. When you type anything, the tooltip on the right show you the current action.
 1. Run the action with **ENTER**
 
@@ -59,18 +59,18 @@ If you didn't type any command or if no project is find, Redspot allow you to cr
 
 | Name (FR) | /command  | Destination |
 |:---|:---|:---|
-| Activité |  **`/a`**, `/activity` | `/activity` |
+| Activity |  **`/a`**, `/activity` | `/activity` |
 | Roadmap |  **`/r`**, `/roadmap` | `/roadmap` |
-| Demandes |  **`/#`**, `/i`, `/issues` | `/issues` |
-| Nouvelle demande |  **`/+`**, `/new` | `/issues/new` |
+| Issues |  **`/#`**, `/i`, `/issues` | `/issues` |
+| New Issue |  **`/+`**, `/new` | `/issues/new` |
 | Gantt |  **`/g`**, `/gantt` | `/issues/gantt` |
 | Calendar |  **`/c`**, `/calendar` | `/issues/calendar` |
-| Annonces |  **`/n`**, `/news` | `/news` |
+| News |  **`/n`**, `/news` | `/news` |
 | Documents |  **`/d`**, `/documents` | `/documents` |
 | Wiki |  **`/w`**, `/wiki` | `/wiki` |
 | Wiki by date |  **`/wd`** | `/wiki/date_index` |
 | Wiki by title |  **`/wt`** | `/wiki/index` |
 | Files |  **`/f`**, `/files` | `/files` |
-| Configuration |  **`/s`**, `/settings` | `/settings` |
+| Settings |  **`/s`**, `/settings` | `/settings` |
 
 ---

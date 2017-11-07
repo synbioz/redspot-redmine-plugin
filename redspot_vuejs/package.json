@@ -1,7 +1,7 @@
 {
   "name": "Redspot",
   "version": "1.0.0",
-  "description": "Redmine is a Redmine navigation plugin built with VueJS",
+  "description": "Redspot is a Redmine navigation plugin built with VueJS",
   "author": "Victor Darras <vdarras@synbioz.com>",
   "private": true,
   "scripts": {

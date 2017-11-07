@@ -1,7 +1,7 @@
 Redmine::Plugin.register :redspot do
   name 'Redspot plugin'
   author 'Victor Darras'
-  description 'This is a plugin for Redmine'
+  description 'Redspot is a keyboard-only Redmine navigation plugin built with VueJS'
   version File.read(File.expand_path("../VERSION", __FILE__))
   url '/redspot'
   author_url 'http://synbioz.com'
