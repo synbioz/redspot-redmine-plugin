@@ -1,12 +1,20 @@
 # Redmine Plugin Installation
 
-To install the Redspot plugin on your Redmine instance, 3 easy steps :
+To install the Redspot plugin on your Redmine instance, 3 easy steps:
 
 1. Go to the `plugins/` Redmine directory,
 1. Clone this repository,
 1. Restart the Redmine rails server & enjoy.
 
-# Development
+# Contributing
+
+- Fork it
+- Create your feature branch (git checkout -b my-new-feature)
+- Commit your changes (git commit -am 'Add some feature')
+- Push to the branch (git push origin my-new-feature)
+- Create new Pull Request
+
+## Development
 
 To watch and build the plugin on change, run :
 ```
@@ -19,7 +27,7 @@ with a default projet selector to initialize Redspot.
 
 When you update the VueJS App, change the plugin version in VERSION.
 
-Then :
+Then:
 ```
 rake build
 ```
@@ -36,7 +44,7 @@ You can override many variables to customize you Redspot.
 
 Override line 1 in `style.sass` with the theme you wanna use and take inspiration from other themes.
 
-You can also choose an existing theme from the followings :
+You can also choose an existing theme from the followings:
 
 ### theme-defaut.sass
 ![Theme default](doc_img/theme-default.png)
