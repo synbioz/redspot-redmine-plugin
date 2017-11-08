@@ -3,12 +3,12 @@
 Redspot is a _keyboard-only_ **Redmine Plugin** that help users to navigate
 efficiently and rapidly in redmine features and pages. Inspired by Spotlight.
 
-**Installation**, **Theming** and technical stuff are developed in the [Developer Guide](developer.md)
+**Installation**, **Theming** and technical stuff are explained in the [Developer Guide](developer.md)
 
 ---
 
 1. To launch Redspot type **ESC** (escape) anywhere in Redmine.
-1. When you type anything, the tooltip on the right show you the current action.
+1. When you type something, the tooltip on the right show you the current action.
 1. Run the action with **ENTER**
 
 That's all folks !
