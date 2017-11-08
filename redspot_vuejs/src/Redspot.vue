@@ -152,10 +152,10 @@
           word[0] !== '/' && word[0] !== '!' && word[0] !== '#'
         ).join(' ')
         p = p.replace(/\s*$/, '')
-        return p.length ? p : ''
+        return p
       },
       updateCurrentIndex: function (e) {
-        if (this.filteredProject.length <= 0) {
+        if (this.filteredProject.length === 0) {
           return false
         }
         if (e && e.type === 'mouseenter') {
@@ -196,7 +196,7 @@
     },
     computed: {
       parsed: function () {
-        if (this.inputText.length > 0) {
+        if (this.inputText.length) {
           return {
             issue: this.inputText.split('').shift() === '#' ? this.inputText.split('#').pop() : '',
             search: this.inputText.split('').shift() === '!' ? this.inputText.replace('!', '') : '',
@@ -222,7 +222,7 @@
         l += this.parsed.command && this.currentProject ? ' - ' : ''
         l += this.currentProject ? this.currentProject.name : ''
 
-        if (l.length > 0) {
+        if (l.length) {
           this.currentTip = ''
         } else {
           const p = this.parsed.project
