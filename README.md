@@ -1,5 +1,7 @@
 # Redspot
 
+Current version : `1.0.0`
+
 Redspot is a _keyboard-only_ **Redmine Plugin** that help users to navigate
 efficiently and rapidly in redmine features and pages. Inspired by Spotlight.
 
