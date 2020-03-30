@@ -10,9 +10,8 @@ services:
     environment:
       REDMINE_DB_MYSQL: db
       REDMINE_DB_PASSWORD: example
-    # command: 'bash'
-    # tty: true
-    # stdin_open: true
+    volumes:
+      - ./:/usr/src/redmine/plugins/redspot
 
   db:
     image: mysql:5.7
@@ -20,3 +19,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: redmine
+    volumes:
+      - db-storage:/var/lib/mysql
+
+volumes:
+  db-storage: ~
