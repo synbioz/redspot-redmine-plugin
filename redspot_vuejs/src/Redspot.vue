@@ -186,7 +186,9 @@
         if (!url) return
 
         this.isLoading = true
-        url = window.location.origin + url
+        if (!url.includes(window.location.origin)) {
+          url = window.location.origin + url
+        }
         if (e.metaKey) {
           window.open(url, '_blank')
         } else {
@@ -264,6 +266,7 @@
       var projectList = []
       // Init Project List
       if (document.getElementById('project_quick_jump_box') && document.getElementById('project_quick_jump_box').length !== 0) {
+        // Redmine 3.0
         document.querySelectorAll('#project_quick_jump_box option').forEach(function (opt) {
           if (opt.value.match(/\/projects\/(.*)\?.*/) === null) {
             return
