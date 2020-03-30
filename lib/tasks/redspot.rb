@@ -1,5 +1,7 @@
 # Rakefile
 
+require "rake"
+
 desc "Build the Redspot"
 task :build do
   Dir.chdir(File.expand_path("../../../redspot_vuejs", __FILE__))
