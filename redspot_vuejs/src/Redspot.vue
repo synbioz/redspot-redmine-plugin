@@ -261,9 +261,9 @@
         return curAliases
       }, {})
 
+      var projectList = []
       // Init Project List
-      if (document.getElementById('project_quick_jump_box').length !== 0) {
-        var projectList = []
+      if (document.getElementById('project_quick_jump_box') && document.getElementById('project_quick_jump_box').length !== 0) {
         document.querySelectorAll('#project_quick_jump_box option').forEach(function (opt) {
           if (opt.value.match(/\/projects\/(.*)\?.*/) === null) {
             return
@@ -271,6 +271,18 @@
           projectList.push({
             name: diacritics.remove(opt.innerText.split('»').pop().trim()),
             url: opt.value.split('?').shift()
+          })
+        })
+        this.fuseProjectList = new Fuse(projectList, fuseOptions)
+      } else if (document.querySelector('.drdn-items.projects.selection')) {
+        // For redmine 4.1
+        document.querySelectorAll('.drdn-items.projects.selection a').forEach(function (opt) {
+          if (opt.href.match(/\/projects\/(.*)\?.*/) === null) {
+            return
+          }
+          projectList.push({
+            name: diacritics.remove(opt.innerText.split('»').pop().trim()),
+            url: opt.href.split('?').shift()
           })
         })
         this.fuseProjectList = new Fuse(projectList, fuseOptions)
